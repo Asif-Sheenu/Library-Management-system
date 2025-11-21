@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        softblue: "#DCE7F3",
+                        bluegray: "#93A4B7",
+                        navy: "#1F3A5F",
+                        sand: "#EFE9DD",
+                        ink: "#222222"
+                    },
+                    fontFamily: {
+                        classic: ["Georgia", "serif"],
+                        clean: ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body class="bg-sand min-h-screen text-ink font-clean">
+
+    <nav class="bg-white shadow-sm border-b px-8 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-classic text-navy tracking-wide flex items-center gap-2">
+            📚 Library Hub
+        </h1>
+
+        <div class="flex items-center gap-4">
+            <span class="text-bluegray font-medium">
+                Welcome, <span class="text-navy font-semibold">{{ request.user.username }}</span>
+            </span>
+
+            <a href="{% url 'logout' %}"
+               class="px-4 py-2 bg-navy text-white rounded-lg hover:bg-bluegray transition shadow">
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <div class="max-w-5xl mx-auto mt-12 px-6">
+
+        <div class="bg-white p-10 rounded-2xl shadow-lg border border-bluegray/20">
+            <h2 class="text-3xl font-classic text-navy mb-2">
+                Hello {{ request.user.username }} 👋
+            </h2>
+            <p class="text-bluegray text-lg">
+                Manage your profile and explore everything the library offers.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10 mt-14">
+
+            <a href="{% url 'books:user_profile' %}"
+               class="bg-white p-7 rounded-xl shadow-md border hover:shadow-xl transition group">
+                <div class="flex items-center gap-5">
+                    <div class="bg-sand p-5 rounded-xl text-3xl group-hover:bg-softblue transition">
+                        ⚙️
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-navy group-hover:text-bluegray">
+                            Profile Settings
+                        </h3>
+                        <p class="text-bluegray text-sm mt-1">
+                            Update your personal details
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'books:my_requests' %}#requests"
+               class="bg-white p-7 rounded-xl shadow-md border hover:shadow-xl transition group">
+                <div class="flex items-center gap-5">
+                    <div class="bg-softblue p-5 rounded-xl text-3xl group-hover:bg-bluegray/30 transition">
+                        📄
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-navy group-hover:text-bluegray">
+                            My Book Requests
+                        </h3>
+                        <p class="text-bluegray text-sm mt-1">
+                            Track your pending & approved requests
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

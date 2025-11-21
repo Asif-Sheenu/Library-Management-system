@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body { background: #f5f5f5; }
+        .gold-text { color: #c49a00; }
+        .gold-border { border-color: #c49a00; }
+        .gold-bg { background-color: #c49a00; }
+        .gold-hover:hover { background-color: #a88200; }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-800">
+
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b gold-border">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <a href="{% url 'books:book_list' %}" class="text-2xl font-bold gold-text tracking-wide">
+                LibraryHub 
+            </a>
+
+            <div class="flex items-center gap-6">
+                <a href="{% url 'logout' %}" 
+                   class="px-4 py-2 gold-bg gold-hover text-white font-semibold rounded-xl shadow-md transition">
+                    Logout
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-10">
+
+        <h1 class="text-4xl font-bold gold-text mb-8">Your Profile</h1>
+
+        <div class="bg-white border gold-border rounded-2xl p-6 shadow-xl mb-10">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Update Profile</h2>
+
+            <form action="" method="POST" class="space-y-5">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block mb-1 text-gray-600">Username</label>
+                    <input 
+                        type="text" 
+                        name="username" 
+                        value="{{ user.username }}"
+                        class="w-full px-4 py-2 rounded-xl bg-gray-100 border gold-border text-gray-900 focus:outline-none"
+                    />
+                </div>
+
+                <div>
+                    <label class="block mb-1 text-gray-600">Email</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        value="{{ user.email }}"
+                        class="w-full px-4 py-2 rounded-xl bg-gray-100 border gold-border text-gray-900 focus:outline-none"
+                    />
+                </div>
+
+                <button 
+                    type="submit"
+                    class="w-full py-2.5 gold-bg gold-hover text-white font-semibold rounded-xl shadow-md transition">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-white border gold-border rounded-2xl p-6 shadow-xl">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Book Requests</h2>
+
+            {% if books %}
+                <ul class="divide-y divide-gray-300">
+                    {% for req in books %}
+                        <li class="py-4 flex justify-between items-center">
+                            <div>
+                                <p class="text-lg font-semibold text-gray-900">{{ req.book.title }}</p>
+                                <p class="text-sm text-gray-600">Status: {{ req.status }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500">You haven't requested any books yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+</html>

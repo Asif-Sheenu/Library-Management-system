@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="p-10">
+
+<h2 class="text-3xl font-bold mb-6">Book Requests</h2>
+
+<table class="w-full border rounded-xl">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="p-3">User</th>
+            <th class="p-3">Book</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for req in requests %}
+        <tr class="border-b">
+            <td class="p-3">{{ req.user.username }}</td>
+            <td class="p-3">{{ req.book.title }}</td>
+
+            <td class="p-3">{{ req.status }}</td>
+
+            <td class="p-3 flex gap-3">
+                {% if req.status == "PENDING" %}
+                    <a href="{% url 'update_request_status' req.id 'approve' %}" class="text-green-600">
+                        Approve
+                    </a>
+                    <a href="{% url 'update_request_status' req.id 'reject' %}" class="text-red-600">
+                        Reject
+                    </a>
+                {% else %}
+                    <span class="text-gray-500">No actions</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

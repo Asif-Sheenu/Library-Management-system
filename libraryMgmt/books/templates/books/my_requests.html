@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="p-10">
+
+<h2 class="text-3xl font-bold mb-6">My Book Requests</h2>
+
+<table class="w-full border rounded-xl">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="p-3">Book</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for req in requests %}
+        <tr class="border-b">
+            <td class="p-3">{{ req.book.title }}</td>
+
+            <td class="p-3">
+                {% if req.status == "PENDING" %}
+                    <span class="text-yellow-600">Pending</span>
+                {% elif req.status == "APPROVED" %}
+                    <span class="text-green-600">Approved</span>
+                {% else %}
+                    <span class="text-red-600">Rejected</span>
+                {% endif %}
+            </td>
+
+            <td class="p-3">{{ req.created_at|date:"d M, Y" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

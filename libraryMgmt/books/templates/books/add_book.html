@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Book</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+      body {
+          background: #0d0d0d;
+      }
+      .gold-text { color: #d4af37; }
+      .gold-bg { background-color: #d4af37; }
+      .gold-hover:hover { background-color: #b8902e; }
+      .gold-border { border-color: #d4af37; }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4">
+
+<div class="w-full max-w-xl bg-black/80 backdrop-blur-xl shadow-2xl rounded-3xl border gold-border p-10">
+
+  <h1 class="text-4xl font-extrabold gold-text mb-8 text-center tracking-wide">
+    Add New Book
+  </h1>
+
+  <form method="POST" class="space-y-6">
+    {% csrf_token %}
+
+    <div class="space-y-5">
+      {% for field in form %}
+        <div>
+          <label class="block gold-text font-medium mb-2 tracking-wide">
+            {{ field.label }}
+          </label>
+
+          <div>
+            {{ field }}
+          </div>
+
+          {% if field.errors %}
+            <p class="text-red-500 text-sm mt-1">
+              {{ field.errors|striptags }}
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <button 
+      type="submit"
+      class="w-full py-4 gold-bg gold-hover text-black font-bold rounded-2xl shadow-lg transition-all transform hover:scale-[1.03]">
+      Save Book
+    </button>
+  </form>
+
+</div>
+
+<style>
+  input, select, textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #2a2a2a;
+    border-radius: 14px;
+    background: #111;
+    color: #e0e0e0;
+    transition: .25s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #d4af37;
+    outline: none;
+    box-shadow: 0 0 8px rgba(212,175,55,0.6);
+    background: #141414;
+  }
+
+  label {
+    color: #d4af37;
+  }
+</style>
+
+</body>
+</html>

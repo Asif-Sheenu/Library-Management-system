@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Library App{% endblock %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1F3A5F",
+                        secondary: "#DCE7F3",
+                        accent: "#d4af37",
+                        background: "#EFE9DD",
+                        darkbg: "#222222",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        classic: ["Georgia", "serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen font-sans text-darkbg">
+
+    <nav class="bg-primary text-white shadow-md px-6 py-4 flex justify-between items-center">
+        <a href="/" class="text-2xl font-classic font-bold flex items-center gap-2">
+            📚 Library Hub
+        </a>
+
+        <div class="flex items-center gap-4">
+            {% if request.user.is_authenticated %}
+                <span class="text-secondary font-medium">
+                    Welcome, <span class="font-bold">{{ request.user.username }}</span>
+                </span>
+                <a href="{% url 'logout' %}" class="px-4 py-2 bg-accent rounded-lg hover:bg-yellow-600 transition shadow">
+                    Logout
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="px-4 py-2 bg-accent rounded-lg hover:bg-yellow-600 transition shadow">
+                    Login
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="mt-20 bg-primary text-white py-6 text-center text-sm">
+        &copy; 2025 Library Hub. All rights reserved.
+    </footer>
+
+</body>
+</html>

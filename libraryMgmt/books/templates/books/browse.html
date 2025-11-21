@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Books{% endblock %}
+
+{% block content %}
+<div class="min-h-screen p-8 bg-gray-100">
+    <div class="max-w-6xl mx-auto space-y-6">
+
+        <h1 class="text-3xl font-bold text-gray-800">Browse Books</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for book in books %}
+            <div class="bg-white shadow rounded-xl p-6 border border-gray-200">
+
+                <h2 class="text-xl font-semibold text-gray-900">{{ book.title }}</h2>
+                <p class="text-gray-600">{{ book.author }}</p>
+
+                <a href="{% url 'books:request_book' book.id %}"
+                   class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700">
+                    Request Book
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
